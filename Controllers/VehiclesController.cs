@@ -29,8 +29,10 @@ namespace Project_Vehicle.Controllers
             {
                 vehicleList = vehicleList.Where(s => s.Name.Contains(searchString));
             }
-
-           
+            else
+            {
+                vehicleList.ToList();
+            }
             return View(await vehicleList.ToListAsync());
         }
 

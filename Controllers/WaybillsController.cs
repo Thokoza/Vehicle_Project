@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Project_Vehicle.Data;
 
 namespace Project_Vehicle.Models
@@ -22,9 +23,25 @@ namespace Project_Vehicle.Models
         // GET: Waybills
         public async Task<IActionResult> Index()
         {
+            var allwaybills =   _context.Waybill.ToList();
+            var allvehicles = _context.Vehicle.ToList();
 
-            ViewBag.message = new SelectList(_context.Vehicle.ToList(), "Id", "Name");
-            return View(await _context.Waybill.ToListAsync());
+            var waybill = from waybillList in allwaybills
+                          join veh in allvehicles on waybillList.VehicleId equals veh.Id
+                          select new Waybill
+                          {
+                              Id = waybillList.Id,
+                                WaybilNumber =  waybillList.WaybilNumber,
+                                VehicleName = veh.Name,
+                                VehicleId = waybillList.VehicleId,
+                               From =  waybillList.From,
+                               To =  waybillList.To,
+                              Quantity = waybillList.Quantity,
+                               Weight =  waybillList.Weight,
+                               Date = waybillList.Date
+                          };
+
+            return View(waybill);
         }
 
         // GET: Waybills/Details/5

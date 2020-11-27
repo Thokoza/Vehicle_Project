@@ -26,10 +26,8 @@ namespace Project_Vehicle.Models
         public string Weight { get; set; }
         [Required]
         public string Quantity { get; set; }
-
-        public List<Vehicle> Vehicles { get; set; }
-        
-
-        public virtual List<Vehicle> Vehicle { get; set; }
+        public int VehicleId { get; set; }
+        public string VehicleName { get; set; }
+        public  Vehicle Vehicle { get; set; }
     }
 }

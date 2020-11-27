@@ -21,7 +21,7 @@ namespace Project_Vehicle.Models
         public string Model { get; set; }
         [Required]
         public string Description { get; set; }
-        [Range(1, 100)]
+        [Range(1, 1000)]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
